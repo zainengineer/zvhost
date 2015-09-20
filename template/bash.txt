@@ -1,0 +1,13 @@
+
+cat <<EOT >> /tmp/vhost-{{{folder}}}.conf
+{{{vhost}}}
+EOT
+sudo cp /tmp/vhost-{{{folder}}}.conf /etc/{{{apache}}}/sites-available/{{{domain}}}.conf
+sudo a2ensite {{{domain}}}
+sudo service {{{apache}}} restart
+if grep "{{{domain}}}" /etc/hosts
+then
+    echo "entry exists in etc hosts"
+else
+    sudo echo "127.0.0.1 {{{domain}}}" | sudo tee -a /etc/hosts
+fi
