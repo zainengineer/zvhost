@@ -1,20 +1,13 @@
 var templateHtml;
 var commandTemplateHtml;
-jQuery.get('template/version1.conf', function (data){
+jQuery.get('template/db.txt', function (data){
         templateHtml = data;
-        startTemplate(data,param);
+        startTemplate(data,db_param);
 });
-
-jQuery.get('template/bash.txt', function (data){
-        commandTemplateHtml = data;
-});
-
-
-var container = document.getElementById("jsoneditor");
 
 function startTemplate(html){
     jQuery('#template').html(html);
-    var html = Mustache.to_html(html, param);
+    var html = Mustache.to_html(html, db_param);
     jQuery('#rendered').html(html);
     var container = document.getElementById("jsoneditor");
     var options = {
@@ -23,7 +16,7 @@ function startTemplate(html){
     };
     
     window.editor = new JSONEditor(container,options);
-    editor.setValue(param);
+    editor.setValue(db_param);
     
     editor.on('change', function(){
         var json = editor.getValue();
@@ -35,17 +28,4 @@ function renderMustache(templateHtml, json)
 {
     var html = Mustache.to_html(templateHtml, json);
     jQuery('#rendered').html(html);
-    json.vhost = html;
-    renderCommand(json);
-}
-
-function renderCommand(json)
-{
-    if (!templateHtml || !commandTemplateHtml){
-        return;
-    }
-    var html = Mustache.to_html(commandTemplateHtml, json);
-    html = String(html).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    jQuery('#command').html(html);
-    
 }
