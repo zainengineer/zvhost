@@ -1,6 +1,6 @@
 var db_param = {
-    root_pass: 'password',
+    root_password: 'password',
     database: 'db',
     user: 'user',
-    password: 'password'
+    user_password: 'password'
 }

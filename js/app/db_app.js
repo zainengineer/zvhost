@@ -7,12 +7,13 @@ jQuery.get('template/db.txt', function (data){
 
 function startTemplate(html){
     jQuery('#template').html(html);
-    var html = Mustache.to_html(html, db_param);
+    html = Mustache.to_html(html, db_param);
     jQuery('#rendered').html(html);
     var container = document.getElementById("jsoneditor");
     var options = {
         schema: '',
-        theme: 'bootstrap3'
+        theme: 'bootstrap3',
+        iconlib: 'fontawesome4'
     };
     
     window.editor = new JSONEditor(container,options);

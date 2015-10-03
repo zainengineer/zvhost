@@ -19,7 +19,8 @@ function startTemplate(html){
     var container = document.getElementById("jsoneditor");
     var options = {
         schema: '',
-        theme: 'bootstrap3'
+        theme: 'bootstrap3',
+        iconlib: 'fontawesome4'
     };
     
     window.editor = new JSONEditor(container,options);
