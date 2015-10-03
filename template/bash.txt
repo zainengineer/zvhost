@@ -2,7 +2,7 @@
 cat <<EOT >> /tmp/vhost-{{{folder}}}.conf
 {{{vhost}}}
 EOT
-sudo cp /tmp/vhost-{{{folder}}}.conf /etc/{{{apache}}}/sites-available/{{{domain}}}.conf
+sudo mv /tmp/vhost-{{{folder}}}.conf /etc/{{{apache}}}/sites-available/{{{domain}}}.conf
 sudo a2ensite {{{domain}}}
 sudo service {{{apache}}} restart
 if grep "{{{domain}}}" /etc/hosts
