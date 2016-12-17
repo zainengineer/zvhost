@@ -16,7 +16,6 @@ function startTemplate(html) {
     jQuery('#template').html(html);
     var html = Mustache.to_html(html, param);
     jQuery('#rendered').html(html);
-    var container = document.getElementById("jsoneditor");
     var options = {
         schema: '',
         theme: 'bootstrap3',
@@ -28,10 +27,14 @@ function startTemplate(html) {
 
     editor.on('change', function () {
         var json = editor.getValue();
+        json = processJson(json);
         renderMustache(templateHtml, json);
     });
 }
-
+function processJson(json)
+{
+    return json;
+}
 function renderMustache(templateHtml, json) {
     var html = Mustache.to_html(templateHtml, json);
     jQuery('#rendered').html(html);
