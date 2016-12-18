@@ -1,5 +1,6 @@
 var templateHtml;
 var commandTemplateHtml;
+var VHostAppVars = {};
 jQuery.get('template/version1.conf', function (data) {
     templateHtml = data;
     startTemplate(data, param);
@@ -46,8 +47,15 @@ function renderCommand(json) {
     if (!templateHtml || !commandTemplateHtml) {
         return;
     }
-    var html = Mustache.to_html(commandTemplateHtml, json);
-    html = String(html).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    var output = Mustache.to_html(commandTemplateHtml, json);
+    html = String(output).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     jQuery('#command').html(html);
-
+    this.postProcess({json:json,html:html,output:output});
+}
+function postProcess(param)
+{
+    if (jQuery){
+        jQuery('.clip-board-trigger').attr('data-clipboard-text',param.output);
+        VHostAppVars.clipBoardBind = new Clipboard('.clip-board-trigger');
+    }
 }
