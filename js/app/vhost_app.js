@@ -65,7 +65,7 @@ function postProcess(param)
         }
         var html = String(output).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         jQuery('#command').html(html);
-        jQuery('.clip-board-trigger').attr('data-clipboard-text',param.output);
+        jQuery('.clip-board-trigger').attr('data-clipboard-text',output);
         VHostAppVars.clipBoardBind = new Clipboard('.clip-board-trigger');
     }
 }
