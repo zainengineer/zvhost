@@ -55,15 +55,15 @@ function postProcess(param)
     if (jQuery){
 
         var objectData = param.json ;
-        var html = String(param.output).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        var output = param.output;
         if (typeof(objectData) == 'string'){
             objectData =  JSON.parse(objectData);
         }
         if (objectData.apache == 'httpd'){
-            html = html.replace('/etc/httpd/sites-available','/etc/httpd/conf.d')
-            html = html.replace('sudo a2ensite','#sudo a2ensite');
+            output = output.replace('/etc/httpd/sites-available','/etc/httpd/conf.d')
+            output = output.replace('sudo a2ensite','#sudo a2ensite');
         }
-
+        var html = String(output).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         jQuery('#command').html(html);
         jQuery('.clip-board-trigger').attr('data-clipboard-text',param.output);
         VHostAppVars.clipBoardBind = new Clipboard('.clip-board-trigger');
