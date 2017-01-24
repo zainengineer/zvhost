@@ -48,13 +48,23 @@ function renderCommand(json) {
         return;
     }
     var output = Mustache.to_html(commandTemplateHtml, json);
-    html = String(output).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    jQuery('#command').html(html);
-    this.postProcess({json:json,html:html,output:output});
+    this.postProcess({json:json,output:output});
 }
 function postProcess(param)
 {
     if (jQuery){
+
+        var objectData = param.json ;
+        var html = String(param.output).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        if (typeof(objectData) == 'string'){
+            objectData =  JSON.parse(objectData);
+        }
+        if (objectData.apache == 'httpd'){
+            html = html.replace('/etc/httpd/sites-available','/etc/httpd/conf.d')
+            html = html.replace('sudo a2ensite','#sudo a2ensite');
+        }
+
+        jQuery('#command').html(html);
         jQuery('.clip-board-trigger').attr('data-clipboard-text',param.output);
         VHostAppVars.clipBoardBind = new Clipboard('.clip-board-trigger');
     }
