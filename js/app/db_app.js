@@ -27,11 +27,18 @@ function startTemplate(html) {
 
 function renderMustache(templateHtml, json) {
     ZStorage.saveObject('db_json',json);
-    var html = Mustache.to_html(templateHtml, json);
+    let jsonProcessed = preProcess(json);
+    var html = Mustache.to_html(templateHtml, jsonProcessed);
     jQuery('#rendered').html(html);
     this.postProcess({json:json,html:html,output:html});
 }
-
+function preProcess(param){
+    let paramCopy = jQuery.extend({}, param);
+    if (param.host){
+        paramCopy.host = "-h" + param.host;
+    }
+    return paramCopy;
+}
 function postProcess(param)
 {
     if (jQuery){
