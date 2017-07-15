@@ -1,4 +1,6 @@
 mysql -uroot {{#root_password}}-p{{{root_password}}}{{/root_password}} <<< "CREATE DATABASE {{{database}}} CHARACTER SET utf8 COLLATE utf8_general_ci"
 mysql -uroot {{#root_password}}-p{{{root_password}}}{{/root_password}} <<< "CREATE USER {{{user}}}@localhost IDENTIFIED BY '{{{user_password}}}';"
+mysql -uroot {{#root_password}}-p{{{root_password}}}{{/root_password}} <<< "CREATE USER {{{user}}}@'%' IDENTIFIED BY '{{{user_password}}}';"
 mysql -uroot {{#root_password}}-p{{{root_password}}}{{/root_password}} <<< "GRANT ALL PRIVILEGES ON {{{database}}}.* TO {{{user}}}@localhost;"
+mysql -uroot {{#root_password}}-p{{{root_password}}}{{/root_password}} <<< "GRANT ALL PRIVILEGES ON {{{database}}}.* TO {{{user}}}@'%';"
 mysql -uroot {{#root_password}}-p{{{root_password}}}{{/root_password}} <<<  "FLUSH PRIVILEGES;"
