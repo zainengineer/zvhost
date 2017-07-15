@@ -26,6 +26,7 @@ function startTemplate(html) {
 }
 
 function renderMustache(templateHtml, json) {
+    ZStorage.saveObject('db_json',json);
     var html = Mustache.to_html(templateHtml, json);
     jQuery('#rendered').html(html);
     this.postProcess({json:json,html:html,output:html});
