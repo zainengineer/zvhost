@@ -28,7 +28,9 @@ function startTemplate(html) {
     };
 
     window.editor = new JSONEditor(container, options);
-    editor.setValue(param);
+    paramForEditor =  removeCalculatedParam(param);
+    editor.setValue(paramForEditor);
+    // editor.setValue(param);
 
     editor.on('change', function () {
         var json = editor.getValue();
@@ -40,9 +42,24 @@ function processJson(json)
 {
     return json;
 }
+function removeCalculatedParam(json)
+{
+    let clonedJson = $.extend({}, json);
+    //so it won't pick it up from last storage
+    delete clonedJson.vhost;
+    return clonedJson;
+}
 function renderMustache(templateHtml, json) {
+    ZStorage.saveObject('vhost_param',json);
     var html = Mustache.to_html(templateHtml, json);
     jQuery('#rendered').html(html);
+
+    /**
+     * so vhost can be injected into bash command
+     * cat <<EOT >> /tmp/vhost-{{{domain}}}.conf
+     {{{vhost}}}
+     EOT
+     */
     json.vhost = html;
     renderCommand(json);
 }
