@@ -11,5 +11,5 @@ if grep "{{{domain}}}" /etc/hosts
 then
     echo "entry exists in etc hosts"
 else
-    sudo echo "127.0.0.1 {{{domain}}}" | sudo tee -a /etc/hosts
+    sudo echo -e "\n127.0.0.1 {{{domain}}}" | sudo tee -a /etc/hosts
 fi
