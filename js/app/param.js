@@ -3,6 +3,8 @@ let param = {
     location: '/var/www/vhosts/vss',
     apache: 'apache2',
     aliases: '',
+    fpm: false,
+    fpm_port: 9000,
     autoprepend: false
 };
 window.param = $.extend(param, ZStorage.getObject('vhost_param'));
