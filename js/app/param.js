@@ -4,6 +4,7 @@ let param = {
     apache: 'apache2',
     aliases: '',
     fpm: false,
+    etc_path: "/etc",
     fpm_port: 9000,
     autoprepend: false
 };

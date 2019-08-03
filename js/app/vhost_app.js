@@ -81,8 +81,14 @@ function postProcess(param)
             objectData =  JSON.parse(objectData);
         }
         if (objectData.apache == 'httpd'){
-            output = output.replaceAll('/etc/httpd/sites-available','/etc/httpd/conf.d')
+            output = output.replaceAll('/etc/httpd/sites-available','/etc/httpd/conf.d');
             output = output.replaceAll('sudo a2ensite','#sudo a2ensite');
+        }
+        if (objectData.apache == 'xampp'){
+            output = output.replaceAll('/xampp/sites-available','/apache2/conf/sites-enabled');
+            output = output.replaceAll('sudo a2ensite','#sudo a2ensite');
+            output = output.replaceAll('sudo service xampp restart','');
+            output = output.replaceAll('#xampp restart sudo','sudo');
         }
         var html = String(output).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         jQuery('#command').html(html);

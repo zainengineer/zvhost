@@ -3,10 +3,11 @@ sudo ls
 cat <<EOT >> /tmp/vhost-{{{domain}}}.conf
 {{{vhost}}}
 EOT
-sudo rm /etc/{{{apache}}}/sites-available/{{{domain}}}.conf
-sudo mv /tmp/vhost-{{{domain}}}.conf /etc/{{{apache}}}/sites-available/{{{domain}}}.conf
+sudo rm {{{etc_path}}}/{{{apache}}}/sites-available/{{{domain}}}.conf
+sudo mv /tmp/vhost-{{{domain}}}.conf {{{etc_path}}}/{{{apache}}}/sites-available/{{{domain}}}.conf
 sudo a2ensite {{{domain}}}
 sudo service {{{apache}}} restart
+#xampp restart sudo {{{etc_path}}}/bin/httpd -k restart
 if grep "{{{domain}}}" /etc/hosts
 then
     echo "entry exists in etc hosts"
